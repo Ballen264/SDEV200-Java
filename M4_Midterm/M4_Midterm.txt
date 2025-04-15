@@ -1,0 +1,74 @@
+Module 04: Midterm - Debugging Assignment
+In this assignment you will demonstrate your knowledge of debugging by fixing the errors you find in the program
+below. Fix the code, and paste it in this document, along with the list of the problems you fixed.
+This example allows the user to display the string for the day of the week. For example, if the user passed the integer 1,
+the method will return the string Sunday. If the user passed the integer 2, the method will return Monday. This code has
+both syntax errors and logic errors. Hint: There are three logic errors to find and fix (in addition to the syntax errors).
+Inport daysAndDates.DaysOfWeek;
+public class TestDaysOfWeek {
+public static void main(String[] args) {
+System.
+out.println("Days Of week: ");
+for (int i = 0;i < 8;i++) {
+System.
+out.println("Number: " + i + "\tDay Of Week: " + DaysOfWeek.
+DayOfWeekStr(i) )
+}
+}
+}
+package daysAndDates
+public class DaysOfWeek {
+public static String DayOfWeekStr(int NumberOfDay) {
+String dayStr = ""
+switch (NumberOfDay) {
+case 1:
+dayStr = "Sunday";
+break;
+case 2:
+dayStr = "Monday";
+break;
+case 3:
+dayStr = "Tuesday"
+break;
+case 4:
+dayStr = "Wednesday";
+case 5:
+dayStr = "Thursday";
+break;
+case 6:
+dayStr = "Thursday";
+break;
+case 7:
+dayStr = "Saturday";
+break;
+}
+}
+}
+
+
+CORRECTED CODE:
+
+
+TestDaysOfWeek.java
+lines 1.
+
+DaysOfWeek.java
+lines 1, 5, 14, +18, +30, +31.
+
+
+LIST OF PROBLEMS FIXED:
+
+
+TestDaysOfWeek.java
+Spelling error on line one. "import" was misspelled.
+
+DaysOfWeek.java
+Line 1 missing ";".
+Line 5 missing ";".
+Line 14 missing ";'.
+Line 18 added new line. Added code: break;
+Line 30 added new line. added code: return dayStr;
+Line 31 added new line. No new code added.
+
+
+The code should run normally now. I had some trouble because my software wasn't compiling both files.
