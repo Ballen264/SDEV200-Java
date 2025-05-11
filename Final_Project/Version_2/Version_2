@@ -1,0 +1,7 @@
+This version should work better.
+I had some spelling errors in Verison 1 that were fixed. Additionally, the program should allow you to set your own hash for encoding your messages.
+The hash will act as a password that you must know to decipher the message, unless you wish to brute force the hash decoding. That is an option.
+
+Sadly, I am still having difficulty testing my code.
+I was able to grab a tutorial from mjovanovich@ivytech.edu that should act as an acceptable guide for using JavaFX.
+I will be studying this guide.
