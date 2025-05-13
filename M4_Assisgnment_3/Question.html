@@ -1,0 +1,132 @@
+
+import com.sun.net.httpserver.Request;
+
+<%@ page import="java.util.Random" %>
+<%@ page import="Java.util.ArrayList" %>
+<%@ page import="Java.util.List" %>
+
+<%!
+    // Class to show a single addition quesiton.
+    public static class Question {
+
+        // Creates values for computing correct answer.
+        int num1;
+        int num2;
+        int correctAnswer;
+        String userAnswer;
+
+        public Question(int num1, int num2) {
+
+            // Creates values for computing correct answer for current quesiton.
+            this.num1 = num1;
+            this.num2 = num2;
+            this.correctAnswer = num1 + num2;
+            this.userAnswer = "";
+
+        }
+
+        public boolean isCorrect() {
+
+            try {
+
+                return Integer.parseInt(userAnswer) == correctAnswer; // Checks if the answer is correct.
+
+            } catch (NumberFormatException e) {
+
+                return false; // Invalid input entered.
+
+            }
+
+        }
+
+    }
+
+    // Method for creating random questions.
+    public static List<Question> generateQuestions(int numberOfQuestions) {
+
+        List<Question> questions = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < numberOfQuestions; i++) {
+
+            // Creates random numbers for each question.
+            int num1 = random.nextInt(100);
+            int num2 = random.nextInt(100);
+            questions.add(new Question(num1, num2)); // Adds a new question to the list of questions.
+
+        }
+
+        return questions;
+
+    }
+
+%>
+
+<%
+    final int numberOfQuesitons = 10;
+    List<Question> questions = (List<Question>) SSLSession.getAttribute("questions");
+
+    // Generates new questions if they don't exist or are submitted.
+    if (questions == null || Request.getParameter("submit") != null) {
+
+        questions = generalteQuestions(numberOfQuestions);
+        session.setAttribute("questions", questions);
+
+        // Computes user answers.
+        if (Request.getParameter("submit") != null) {
+
+            for (int i = 0; i < numberOfQuestions; i++) {
+
+                String userAnswer = Request.getParameter("answer_" + 1);
+                questions.get(i).userAnswer = userAnswer != null ? userAnswer.trim() : "";
+
+            }
+
+        }
+
+    }
+
+%>
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>Addition Quiz</title>
+
+        <style>
+
+            .question-container {
+                margin-bottom: 10px;
+            }
+        
+        </style>
+
+    </head>
+
+    <body>
+
+        <h1>Addition Quiz</h1>
+
+        <form method=""post">
+        <% for (int i = 0; i < numberOfQuestions; i++) {
+            Question q = questions.get(i); %>
+        <div class="question-container">
+            <%= q.num1 %> + <%= q.num2 %> =
+            <input type="text" name="answer_<%= i %>" value="<%= q.userAnswer %>" size="5">
+            <% if (request.getParameter("submit") != null) { %>
+            <% if (q.isCorrect()) { %>
+            <span class="result-correct">Correct!</span>
+        <$ } else { %>
+        <span>Wrong. Answer: <% q.correctAnswer %></span>
+    <% } %>
+<% } %>
+        </div>
+    <% } %>
+    <br>
+<input type="submit" name="submit" value="Submit Answers">
+</form>
+
+</body>
+</html>
